@@ -27,22 +27,36 @@ class Employee {
 	// Permet d'attribué les données de la fonction aux variables dessous (les
 	// variables sont instancies afin d'être initialiser dans un autre code)
 
-	public Employee(String registrationNumber, String lastName, String firstName, double salary, String birthDate) throws Exception {
-		
+	// GETTERS : Permet de récupéréss les données d'un objet.
+
+	public Employee(String registrationNumber, String lastName, String firstName, double salary, String birthDate)
+			throws Exception {
+
 		boolean isRegistrationNumber = checkRegistrationNumber(registrationNumber);
 		if (isRegistrationNumber == true) {
 			this.registrationNumber = registrationNumber;
 		} else {
-			throw new Exception("Error - constructeur");
+			throw new Exception("Error - constructeur Registration Number.");
 		}
 
-		this.lastName = lastName;
-		this.firstName = firstName;
+		boolean isLastName = checkFirstLastName(lastName);
+		if (isLastName == true) {
+			this.lastName = lastName;
+		} else {
+			throw new Exception("Error - contructeur Last Name.");
+		}
+
+		boolean isFirstName = checkFirstLastName(firstName);
+		if (isFirstName == true) {
+			this.firstName = firstName;
+		} else {
+			throw new Exception("Error - contructeur First Name.");
+		}
+
 		this.salary = salary;
+
 		this.birthDate = LocalDate.parse(birthDate);
 	}
-
-	// GETTERS : Permet de récupéréss les données d'un objet.
 
 	public String getRegistrationNumber() {
 		return this.registrationNumber;
@@ -77,27 +91,36 @@ class Employee {
 			this.registrationNumber = registrationNumber;
 		} else {
 			// Faux
-			throw new Exception("ERROR - setter");
+			throw new Exception("ERROR - setter Registration Number.");
 		}
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setLastName(String lastName) throws Exception {
+
+		boolean isLastName = checkFirstLastName(lastName);
+		if (isLastName == true) {
+
+			this.lastName = lastName;
+		} else {
+
+			throw new Exception("ERROR - setter Last Name.");
+		}
 	}
 
 	public void setFirstName(String firstName) throws Exception {
 
-		boolean isFirstName = checkFirstName(firstName);
+		boolean isFirstName = checkFirstLastName(firstName);
 		if (isFirstName == true) {
 
 			this.firstName = firstName;
 		} else {
 
-			throw new Exception("NON");
+			throw new Exception("ERROR - setter First Name.");
 		}
 	}
 
 	public void setSalary(double salary) {
+		
 		this.salary = salary;
 	}
 
@@ -199,7 +222,7 @@ class Employee {
 	 * @param inputToCheck La chaîne de caractère à vérifier
 	 * @return VRAI s'il s'agit d'un prénom correctement formaté, FAUX sinon
 	 */
-	private boolean checkFirstName(String inputToCheck) {
+	private boolean checkFirstLastName(String inputToCheck) {
 
 		// déclaration du booléen qui va stocker le résultat de la vérification
 		// VRAI -> la chaîne de caractères passée en paramètre est un matricule
@@ -207,26 +230,26 @@ class Employee {
 		// FAUX -> la chaîne de caractères passée en paramètre est un matricule pas bien
 		// formaté
 		boolean isFirstName = false;
+		// boolean isLastName = false;
 
 		for (int index = 0; index < inputToCheck.length(); index++) {
 
 			char ch = inputToCheck.charAt(index);
-			if (index == 0) {
+			if (index < inputToCheck.length()) {
 
-				if (Character.isLetter(ch) == true) {
+				if (Character.isLetter(ch) == true || ch == '-') {
 					isFirstName = true;
 				} else {
 					return false;
 				}
 			}
 		}
-
-		return isFirstName;
+		return true;
 	}
 
 	// si la methode est fausse alors retourner en fonction de l'input
 
-	// TODO implémenter la méthode "toString()" qui renvoie une chaîne de caractère
+	// Implémenter la méthode "toString()" qui renvoie une chaîne de caractère
 	// qui représente un objet de la classe employé
 	// plus d'information sur la méthode "toString()" ->
 	// https://codegym.cc/fr/groups/posts/fr.986.mthode-java-tostring
