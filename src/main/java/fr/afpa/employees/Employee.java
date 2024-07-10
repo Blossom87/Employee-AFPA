@@ -3,6 +3,8 @@ package fr.afpa.employees;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 /*
 Objectif :
 L’objectif de ce TP est de concevoir un programme en console basé sur une approche objet et
@@ -23,6 +25,7 @@ class Employee {
 	private double salary;
 	private LocalDate birthDate;
 	private final int socialRate = 30;
+	private static final Logger logger = LoggerFactory.getLogger(Employee.class);
 
 	// Permet d'attribué les données de la fonction aux variables dessous (les
 	// variables sont instancies afin d'être initialiser dans un autre code)
@@ -36,7 +39,9 @@ class Employee {
 		if (isRegistrationNumber == true) {
 			this.registrationNumber = registrationNumber;
 		} else {
-			throw new Exception("Error - constructeur Registration Number.");
+			IllegalArgumentException e = new IllegalArgumentException("Error - constructeur Registration Number.");
+			logger.error(e.getMessage(), e);
+			throw e;
 		}
 
 		boolean isLastName = checkFirstLastName(lastName);

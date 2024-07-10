@@ -4,11 +4,15 @@ package fr.afpa.employees;
 // import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 // import java.util.Arrays;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Classe principale du projet, contient la fonction "main"
  */
 class EmployeeMain {
+
+	private static final Logger logger = LoggerFactory.getLogger(Employee.class);
 	public static void main(String[] args) {
 		System.out.println("\n----- Exercice de programmation objet - classe \"Employee\" -----");
 
@@ -18,7 +22,7 @@ class EmployeeMain {
 		// e.getMessage() hérite du message d'Exception en fonction de l'erreur.
 		try {
 
-			Employee employee1 = new Employee("11AAA33", "Shazam", "Samantha", 1800.0, "1994-12-12");
+			Employee employee1 = new Employee("11AA33", "Shazam", "Samantha", 1800.0, "1994-12-12");
 			Employee employee2 = new Employee("22BBB44", "Troy", "Roger", 1450.0, "2000-07-29");
 			Employee employee3 = new Employee("33CCC66", "Lmao", "Didier", 2500.0, "1968-01-10");
 
@@ -56,7 +60,6 @@ class EmployeeMain {
 		} catch (Exception e) {
 
 			System.out.println(e.getMessage());
-
 		}
 
 		// Appelle de methode a partir de l'objet employee1 de la classe Employee (le
@@ -68,4 +71,6 @@ class EmployeeMain {
 
 		// Afficher les informations des employés avec System.out.println
 	}
+
+	
 }
